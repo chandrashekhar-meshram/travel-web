@@ -6,15 +6,16 @@
 
 body{
   background-color:hsl(333, 65%, 59%);
-  color: white;
-  
+  color: white;  
 }
+
 .App {
   text-align: center;
 }
 
 .form-container{
   margin: 20px;
-  border: 2px solid black;
+  height: 500px;
+  border: 2px solid black; 
 }
 
