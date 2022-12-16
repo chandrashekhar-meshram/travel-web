@@ -33,7 +33,8 @@ const BasicInfo_1 = () => {
 
   return (
     <>
-       <Form.Group className="mb-3" >
+       <h5 className='mb-4'>BASIC INFO</h5>
+       <Form.Group className="mb-3" controlId='validate01'>
           <Form.Control type='text' placeholder="Product Title" />
        </Form.Group>
        <Row className="mb-3">

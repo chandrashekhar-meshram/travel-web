@@ -28,6 +28,7 @@ function AlwaysOpenExample() {
 const BasicInfo_2 = () => {
   return (
     <Container>
+       <h5 className='mb-4'>BASIC INFO</h5>
        <Row className="mb-3">
         <Form.Group className="col-sm-6"  >
           <Form.Label>Inclusion</Form.Label>

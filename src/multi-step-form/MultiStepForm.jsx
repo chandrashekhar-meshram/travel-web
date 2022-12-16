@@ -9,9 +9,10 @@ import Form from 'react-bootstrap/Form';
 import BasicInfo_1 from './BasicInfo_1';
 import BasicInfo_2 from './BasicInfo_2';
 import Photos from './Photos';
+import Price from './Price';
 
 function MultiStepForm() {
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(0);
 
     const [formData, setFormData] = useState({
         email: '',
@@ -24,6 +25,7 @@ function MultiStepForm() {
         other: '',
     });
     
+    
     const FormTitles = ["BASIC INFO", "BASIC INFO", "PHOTOS", "PRICE"];
 
     const PageDisplay = ()=>{
@@ -31,9 +33,11 @@ function MultiStepForm() {
             return <BasicInfo_1 formData={formData} setFormData={setFormData} />
         } else if (page === 1) {
             return <BasicInfo_2 formData={formData} setFormData={setFormData}/>
-        } else {
+        } else if (page === 2)  {
             return <Photos formData={formData} setFormData={setFormData}/>
-        }        
+        } else {
+            return <Price formData={formData} setFormData={setFormData}/>
+        }       
     };
 
     const [validated, setValidated] = useState(false);
@@ -64,9 +68,9 @@ function MultiStepForm() {
                 style={{ height: 'auto', width:'90%', margin:'20px', padding:'10px'}}
             >
             
-            <Form.Group className="mb-3">
+            {/* <Form.Group className="mb-3">
                 <h5>{FormTitles[page]}</h5> 
-            </Form.Group>   
+            </Form.Group>    */}
 
             <Form.Group>
                 {PageDisplay()}
