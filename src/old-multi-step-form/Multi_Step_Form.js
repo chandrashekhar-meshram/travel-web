@@ -3,6 +3,8 @@ import OtherInfo from './OtherInfo';
 import PersonalInfo from './PersonalInfo';
 import SignUpInfo from './SignUpInfo';
 
+src/old-multi-step-form/Multi_Step_Form.js
+
 const Multi_Step_Form = () => {
 
     const [page, setPage] = useState(0);
@@ -43,8 +45,9 @@ const Multi_Step_Form = () => {
             </div>
         </div>
         <div className='form-container'>
-            <div className='header'>
-                <h1>{FormTitles[page]}</h1>
+            <h3>Old Multi_Step_Form</h3>
+            <div className='header'>                 
+                <h4>Page {page+1} - {FormTitles[page]} </h4>
             </div>
             <div className='body'>{PageDisplay()}</div>
             <div className='footer'>
@@ -73,6 +76,7 @@ const Multi_Step_Form = () => {
                             nationality: '',
                             other:'',                            
                         });
+                        setPage(0);
                     } else {
                         setPage((currPage) => currPage + 1);
                     }                    
