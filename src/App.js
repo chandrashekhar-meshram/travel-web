@@ -9,24 +9,33 @@ import Formik2 from './formik2/Formik2';
 import Formik2Step from './formik2/Formik2Step';
 import FormikMultiStep from './old-multi-step-form/FormikMultiStep';
 import AddProductForm from './travel-web/AddProductForm';
+import Practice from './Ptactice/Practice';
 
 function App() {
   return (
    <>
    App.js
-    {/* <MultiStepForm/> */}
+   <div className='flex'>
+     {/* <MultiStepForm/> */}
     {/* <NestedList/> */}
+
+    {/* thapatechnical */}
     {/* <Formik/> */}
-    <Multi_Step_Form/>
-    <br/><hr/>
-    <FormikMultiStep/>
-    <br/><hr/>
+
+    {/* old */}
+    {/* <Multi_Step_Form/>
+    <br/><hr/> */}
+    
+    {/* <FormikMultiStep/>  */}
+    {/* <br/><hr/> */}
     {/* <Cascading_DropDown/> */}
     {/* <br/><br/><hr/>
     <Form/> */}
     {/* <Formik2/> */}
     {/* <Formik2Step/> */}
-    <AddProductForm/>
+    {/* <AddProductForm/> */}
+    <Practice/>
+   </div>
    </>
  
   );

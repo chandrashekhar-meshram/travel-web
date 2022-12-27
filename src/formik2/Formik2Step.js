@@ -1,227 +1,143 @@
-
-    import { Box, MenuItem, Button, TextField, FormHelperText} from "@mui/material";
-    import { Formik, Form, Field, useFormik, ErrorMessage } from "formik";
-    import * as Yup from 'yup';
-    import useMediaQuery from "@mui/material/useMediaQuery";
-    
-    import { checkoutSchema } from "../formik/schemas"; 
-    
-    const initialValues = {
-      name:'',
-      email:''
-    };
-    
-    const Formik2 = () =>{
-    
-      const isNonMobile = useMediaQuery("(min-width:600px)");
-      
-      const onSubmit = (values, props) => {
-        console.log('values = ', values)
-        console.log(props)
-        setTimeout(() => {
-            props.resetForm()
-            props.setSubmitting(false)
-        }, 2000)
-    }
-    
-       return (
-         <Box m="20px" className="bg-success">
-           <Formik
-            initialValues={initialValues}
-            validationSchema={checkoutSchema}
-            onSubmit={onSubmit}
-           >
-             {(props) => (
-               <Form>
-                 <Field
-                   as={TextField}
-                   fullWidth
-                   lable="name"
-                   placeholder="Name"
-                   name="name"
-                   helperText={<ErrorMessage name="name" />}
-                 />
-    
-                 <Field
-                   as={TextField}
-                   fullWidth
-                   lable="email"
-                   placeholder="Email"
-                   name="email"
-                   helperText={<ErrorMessage name="email" />}
-                 />
-    
-                 <Button
-                   type="submit"
-                   variant="contained"
-                   disabled={props.isSubmitting}
-                   color="primary"
-                 >
-                   {props.isSubmitting ? "Loading" : "Sign up"}
-                 </Button>
-               </Form>
-             )}
-           </Formik>
-         </Box>
-       );
-    }
-     
-      
-      export default Formik2;
-    
+import React, { useState } from 'react';
+import { Box, MenuItem, Button, TextField } from "@mui/material";
+import { Formik, Form, Field, ErrorMessage } from "formik"; 
 
 
-const StepOne = ()=>{
+const initialVal = {
+  first_name:'',
+  last_name:''
+}
 
-    const onSubmit = (values, props) => {
-        console.log('values = ', values)
-        console.log(props)
-        setTimeout(() => {
-            props.resetForm()
-            props.setSubmitting(false)
-        }, 2000)
-    }
 
-return(
-    <Formik
-    initialValues={initialValues}
-    validationSchema={checkoutSchema}
-    onSubmit={onSubmit}
-   >
-     {(props) => (
-       <Form>
-         <Field
-           as={TextField}
-           fullWidth
-           lable="name"
-           placeholder="Name"
-           name="name"
-           helperText={<ErrorMessage name="name" />}
-         />
+const Formik2Step = () => {
 
-         <Field
-           as={TextField}
-           fullWidth
-           lable="email"
-           placeholder="Email"
-           name="email"
-           helperText={<ErrorMessage name="email" />}
-         />
+const [data, setData] = useState(initialVal);
+const [currPage, setCurrPage] = useState(0);
 
-         <Button
-           type="submit"
-           variant="contained"
-           disabled={props.isSubmitting}
-           color="primary"
-         >
-           {props.isSubmitting ? "Loading" : "Sign up"}
-         </Button>
-       </Form>
-     )}
-   </Formik>
-)
+const pageList = ['1', '2']
 
+const pageDisplay = ()=>{
+  // if(currPage === 0){
+  //   return<Step1 data={data} setData={setData}/>
+  // } else {
+  //   return <Step2 data={data} setData={setData} />
+  // }  
+}
+
+const previousPage = ()=>{
+  setCurrPage(currPage - 1)
+}
+
+const nextPage = ()=>{
+  if(currPage === pageList.length-1){
+     alert('Form Submited');
+     console.log(data);
+     setData(initialVal);
+     setCurrPage(0);
+  } else {
+    setCurrPage(currPage + 1);
+  }
+}
+
+const handleSubmit = (values, props)=>{
+  console.log('values = ', values);
+  console.log('props = ', props);
+  if(currPage === pageList.length){      
+    //setData(initialVal);
+    props.resetForm();   
+ }
 }
 
 
 
 
+  return (
+    <>
+     <div>Formik2Step</div>
+     <Formik
+      initialValues={data}
+      onSubmit={handleSubmit} 
+     >
+      {(values)=>(
+        <Form>
+           {/* {pageDisplay()} */}
+           {
+             (currPage === 0) ? (
+              <Step1 data={data} setData={setData} values={values} currPage={currPage} pageList={pageList}/>
+              ):(
+              <Step2 data={data} setData={setData} values={values} currPage={currPage} pageList={pageList} />
+              )
+           }
 
-//     const StepOne = (prop)=>{
-
-//         const onSubmit = (values, props) => {
-//             console.log('stepone = ',values)
-//             console.log(props)    
-//             prop.next(values)    
-//         }
-        
-    
-//         return(
-//             <Formik 
-//             initialValues={prop.data}
-//             onSubmit={onSubmit}
-//             validationSchema={checkoutSchema}
-//            >
-//            {()=>(
-//                <Form>
-//                    <h3>StepOne</h3>
-//                    <Field as={TextField }
-//                    fullWidth 
-//                    lable='name'
-//                    placeholder='Name'
-//                    name='name'
-//                    helperText={<ErrorMessage name='name'/>}
-//                    />
-
-//                   <Field as={TextField }
-//                    fullWidth 
-//                    lable='email'
-//                    placeholder='Email'
-//                    name='email'
-//                    helperText={<ErrorMessage name='email'/>}
-//                    />
-
-//                    <Button type='submit' 
-//                       variant='contained' 
-//                       color='primary'>
-//                       Next
-//                    </Button>
-//                </Form>
-//            )}
-//           </Formik>
-//         )
-//     }
-        
-     
-    
-//     const StepTwo = (prop)=>{
-        
-//         const onSubmit = (values, props) => {
-//             console.log(values)
-//             console.log(props)
-//             setTimeout(() => {        
-//                 props.resetForm()
-//                 props.setSubmitting(false)
-//             }, 2000)               
-//         }
-    
-//         return(
-//             <Formik 
-//             initialValues={prop.data}
-//             onSubmit={onSubmit}
-//             validationSchema={checkoutSchema}
-//            >
-//            {(props)=>(
-//                <Form>
-//                  <h3>StepTwo</h3>
-//                    <Field as={TextField }
-//                    fullWidth 
-//                    lable='name2'
-//                    placeholder='Name2'
-//                    name='name2'
-//                    helperText={<ErrorMessage name='name'/>}
-//                    />
-
-//                   <Field as={TextField }
-//                    fullWidth 
-//                    lable='email2'
-//                    placeholder='Email2'
-//                    name='email'
-//                    helperText={<ErrorMessage name='email'/>}
-//                    />
-
-//                    <Button type='submit' 
-//                       variant='contained' 
-//                       disabled={props.isSubmitting}
-//                       color='secondary'>
-//                        {props.isSubmitting ? "Loading" : "Submit"}
-//                    </Button>
-//                </Form>
-//            )}
-//           </Formik>
-//         )
-//     }
-    
+          <Button 
+            disabled={currPage === 0}
+            onClick={previousPage}
+          >
+            Back
+          </Button>
+          <Button type='submit' onClick={nextPage}>
+           {currPage === pageList.length-1 ? "Submit" : "Next"}
+          </Button>           
+        </Form>
+      )}
+     </Formik>        
+    </>
+  )
+}
 
 
-// export default Formik2Step;
+const Step1 = ({data, setData},)=>{
+  const handleSubmit= (values, props)=>{
+    console.log("step1 values = ",values);
+    console.log(props)
+    setData(values)
+}   
+
+  return (
+    <>
+      <div>Step1</div>
+      <Formik
+        initialValues={data}
+        onSubmit={handleSubmit}
+      >
+        {() => (
+          <Form>
+            <Field
+              as={TextField}
+              name="first_name"
+              placeholder="First Name"
+              // value={data.first_name}
+              // onChange={(e) => setData({ ...data, first_name: e.target.value })}
+            />
+          </Form>
+        )}
+      </Formik>
+      {/* <Field
+      as={TextField}
+      name='first_name'
+      placeholder='First Name' 
+      value={data.first_name}
+      onChange={(e)=>setData({...data, first_name: e.target.value})}
+     /> */}
+    </>
+  );
+}
+
+const Step2 = ({data, setData})=>{
+
+  return(
+    <>
+     <div>Step2</div>
+     <TextField
+      name='last_name'
+      placeholder='Last Name' 
+      value={data.last_name}
+      onChange={(e)=>setData({...data, last_name: e.target.value})}
+     />
+    </>
+  )
+}
+
+
+
+export default Formik2Step

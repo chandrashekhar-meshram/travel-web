@@ -1,6 +1,7 @@
 import React,{useState} from "react";
+import { Box, MenuItem, Button, TextField } from "@mui/material";
 import { Formik, Form, Field, ErrorMessage } from "formik"; 
-import * as Yup from 'yup'
+import * as Yup from 'yup';
 
 
 const initialVal = {
@@ -12,23 +13,25 @@ const initialVal = {
 
 const FormikMultiStep = ()=>{
 
-    const [data, setData]  = useState({
-        first_name:'',
-        last_name:'',
-        email:'',
-        password:''
-    });
+    const [data, setData]  = useState(initialVal);
 
     const [currentStep, setCurrentStep] = useState(0);
 
     const [errors, setErrors] = useState({})
     
+    var steps = [
+        <StepOne next={handleNextStep} data={data}  steps={steps} currentStep={currentStep}  />,
+        <StepTwo next={handleNextStep} data={data} setData={setData} prev={handlePrevStep} initialVal={initialVal}/>
+    ]
+    
+    
     const makeRequest = (formData)=>{
         console.log("Form Submitted", formData);
     }
 
-    const handleNextStep = (newData, final = false)=>{
-        setData(prev => ({...prev, ...newData}))
+    var handleNextStep = (newData, final = false)=>{
+
+        setData(currentStep => ({...currentStep, ...newData}))
         if(final){
             makeRequest(newData); 
             setData({
@@ -39,18 +42,15 @@ const FormikMultiStep = ()=>{
             });
             return;
         }
-        setCurrentStep(prev => prev + 1)
+        setCurrentStep(currentStep => currentStep + 1)
     }
 
-    const handlePrevStep = (newData)=>{
-        setData(prev => ({...prev, ...newData}))
-        setCurrentStep(prev => prev - 1)
+    var handlePrevStep = (newData)=>{
+        setData(currentStep => ({...currentStep, ...newData}))
+        setCurrentStep(currentStep => currentStep - 1)
     }
 
-    const steps = [
-        <StepOne next={handleNextStep} data={data} errors={errors}/>,
-        <StepTwo next={handleNextStep} data={data} prev={handlePrevStep} errors={errors}/>
-    ]
+   
 
     console.log(data);
 
@@ -62,12 +62,12 @@ const FormikMultiStep = ()=>{
          <Formik
            
         >
-            {()=>(
+            {/* {()=>(
                 <Form>
                     
                   
                 </Form>
-            )}
+            )} */}
         </Formik>
         </div>
     )
@@ -84,7 +84,11 @@ const StepOne = (prop)=>{
     const handleSubmit= (values, props)=>{
         console.log("step1 values = ",values);
         console.log(props)
-        prop.next(values)
+        //prop.next(values)
+        // prop.setData({values})
+        // if(prop.currentStep <= 2){
+        //     props.resetForm()
+        // }
     }   
 
     return(
@@ -94,9 +98,9 @@ const StepOne = (prop)=>{
             validationSchema={stepOneValidationScema}
         >
             {()=>(
-                <Form>
-                    
+                <Form>                    
                     <Field 
+                    as={TextField}
                     name='first_name'
                     placeholder='First Name'
                     />
@@ -104,15 +108,16 @@ const StepOne = (prop)=>{
                     <ErrorMessage name="first_name" />
 
                     <Field 
+                    as={TextField}
                     name='last_name'
                     placeholder='Last Name'
                     />
 
                     <ErrorMessage name="last_name" />
                     <br/><br/>
-                    <button type="submit">
+                    <Button type="submit">
                         Next
-                    </button>
+                    </Button>
                 </Form>
             )}
         </Formik>
@@ -134,12 +139,7 @@ const StepTwo = (prop)=>{
         alert('Form Submitted')
         props.resetForm()
         props.setSubmitting(false)
-        prop.data({
-            first_name:'',
-            last_name:'',
-            email:'',
-            password:''
-        })            
+        //prop.setData(prop.initialVal)            
     }
 
     return(
@@ -151,6 +151,7 @@ const StepTwo = (prop)=>{
             {({values})=>(
                 <Form>
                     <Field 
+                    as={TextField}
                     name='email'
                     placeholder='Email'
                     />
@@ -158,6 +159,7 @@ const StepTwo = (prop)=>{
                     <ErrorMessage name="email" />
 
                     <Field 
+                    as={TextField}
                     name='password'
                     placeholder='Password'
                     />

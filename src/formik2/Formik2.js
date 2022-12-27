@@ -14,8 +14,8 @@ const Formik2 = () =>{
   const isNonMobile = useMediaQuery("(min-width:600px)");
   
   const onSubmit = (values, props) => {
-    console.log('values = ', values)
-    console.log(props)
+    console.log('Formik2 values = ', values)
+    console.log('Formik2 props = ',props)
     setTimeout(() => {
         props.resetForm()
         props.setSubmitting(false)
@@ -31,20 +31,21 @@ const Formik2 = () =>{
        >
          {(props) => (
            <Form>
+            <h4>Formik2</h4>
              <Field
                as={TextField}
                fullWidth
-               lable="name"
-               placeholder="Name"
+              //  lable="name"
+              //  placeholder="Name"
                name="name"
                helperText={<ErrorMessage name="name" />}
              />
 
              <Field
-               as={TextField}
+              
                fullWidth
-               lable="email"
-               placeholder="Email"
+              //  lable="email"
+              //  placeholder="Email"
                name="email"
                helperText={<ErrorMessage name="email" />}
              />
@@ -52,10 +53,10 @@ const Formik2 = () =>{
              <Button
                type="submit"
                variant="contained"
-               disabled={props.isSubmitting}
+              //  disabled={props.isSubmitting}
                color="primary"
              >
-               {props.isSubmitting ? "Loading" : "Sign up"}
+               {/* {props.isSubmitting ? "Loading" : "Sign up"} */}submit
              </Button>
            </Form>
          )}

@@ -3,7 +3,7 @@ import OtherInfo from './OtherInfo';
 import PersonalInfo from './PersonalInfo';
 import SignUpInfo from './SignUpInfo';
 
-src/old-multi-step-form/Multi_Step_Form.js
+
 
 const Multi_Step_Form = () => {
 
@@ -32,6 +32,31 @@ const Multi_Step_Form = () => {
         }        
     };
 
+    const previousPage = ()=>{
+        setPage((currPage)=> currPage - 1);
+    }
+
+    const nextPage =()=>{
+        if (page === FormTitles.length - 1) {
+            alert('Form Submitted');
+            console.log(formData);
+            setFormData({
+                email: '',
+                password: '',
+                confirmPassword: '',
+                firstName: '',
+                lastName: '',
+                username: '',
+                nationality: '',
+                other:'',                            
+            });
+            setPage(0);
+        } else {
+            setPage((currPage) => currPage + 1);
+        }                    
+        
+    }
+
 
   return (
     <div className='form'>
@@ -54,34 +79,12 @@ const Multi_Step_Form = () => {
 
                 <button
                     disabled={page == 0}
-                    onClick={()=>{
-                        setPage((currPage)=> currPage - 1);
-                    }}
+                    onClick={previousPage}
                 >
                     Prev
                 </button>
 
-                <button                  
-                  onClick={()=> {
-                    if (page === FormTitles.length - 1) {
-                        alert('Form Submitted');
-                        console.log(formData);
-                        setFormData({
-                            email: '',
-                            password: '',
-                            confirmPassword: '',
-                            firstName: '',
-                            lastName: '',
-                            username: '',
-                            nationality: '',
-                            other:'',                            
-                        });
-                        setPage(0);
-                    } else {
-                        setPage((currPage) => currPage + 1);
-                    }                    
-                  }}
-                >
+                 <button onClick={nextPage}>
                     {page === FormTitles.length - 1 ? 'Submit' : 'Next'}
                 </button>
             </div>

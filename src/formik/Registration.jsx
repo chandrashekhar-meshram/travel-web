@@ -29,6 +29,7 @@ const Registration = () => {
         "🚀 ~ file: Registration.jsx ~ line 27 ~ Registration ~ errors",
         errors
       );
+      console.log(values);
   return (
    <>
       <div>Registration</div>
